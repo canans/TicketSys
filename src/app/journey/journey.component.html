@@ -1,0 +1,44 @@
+<div class="container mt-4 ">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="row text-center">
+            <h6 class=" text-capitalize col-md-12 mb-3 text-center"></h6>
+          </div>
+      <div class="row mb-3 card card-body">
+
+      </div>
+      <div class="row search-result mb-5 pb-5">
+
+        <table class="table">
+
+          <thead>
+            <tr>
+                <th>Firma</th>
+                <th>Saat</th>
+                <th>Otobüs Tip</th>
+                <th>Kontejan</th>
+                <th>Fiyat</th>
+                <th></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor=" let j of dnm">
+              
+              <td> <h6>Efetur</h6></td>
+             
+              <td></td>
+              <td>2+1</td>
+              <td>{{j.finishLocation}}</td>
+              <td></td>
+              
+            
+              <td><button class="btn btn-danger btn-sm"[routerLink]="['seat']">Koltuk seç</button></td>
+            </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

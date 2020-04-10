@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-md-5 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Sefer Listesi</span>
+          <span class="badge badge-secondary badge-pill" *></span>
+        </h4>
+        <ul class="list-group mb-3" *ngFor="let journey of journeys">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h5 class="my-0">{{journey.startLocation}}>{{journey.finishLocation}}</h5>
+              <h5 class="my-0">{{journey.startDate}}>{{journey.startTime}}</h5>
+              <small class="text-muted">{{journey.ticketPrice}}TL</small>
+            </div>
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button type="button" class="btn btn-danger" (click)="deleteJourney(journey.id)">Sil</button>
+             <button type="button" class="btn btn-info" (click)="update(journey.id)"data-toggle="modal" data-target="#exampleModalCenter">Güncelle</button>
+            
+             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Kaptan Adı</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="form-group">
+                    <input type="captain">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a type="button" class="btn btn-success"  href="#">Güncelle</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+          </div>
+        </li>
+          
+        </ul>
+      </div>
+
+
+ <!--------------------------------------------------------------------------------------------------------------------------->
+    <div class="col-md-7 order-md-1">
+      <form [formGroup]="journeyForm" (ngSubmit)="onSubmit()" >
+            <div class="mb-3">
+              <label>Varış Noktası</label>
+                
+              <select class="form-control" formControlName="finishLocation" [ngClass]="{ 'is-invalid': submitted && f.finishLocation.errors }" required>             
+                <option [value]="country" *ngFor="let country of countries" >{{country}}</option>
+                </select>      
+                     
+              </div>
+   
+       
+              <hr>
+              <div class="mb-3">
+                <label>Sefer Tarihi</label>
+                    <div class=" form-group" >
+                      <input
+                      formControlName="startDate"
+                      type="text"
+                      placeholder=""
+                      class="form-control"
+                      bsDatepicker
+                      [bsConfig]="{ isAnimated: true }"
+                      [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" required
+                      >
+                    </div>                  
+                </div>
+                <div class="form-group">
+                    <label for="time">Sefer Saati</label>
+                    <input type="time" formControlName="startTime"  class="form-control" id="time"[ngClass]="{ 'is-invalid': submitted && f.startTime.errors }" required>
+                    <small id="time" class="form-text text-muted"></small>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="capacity">Kapasite</label>
+                    <select class="form-control" formControlName="capacity" id="capacity"[ngClass]="{ 'is-invalid': submitted && f.capacity.errors }" required>
+                      <option>30</option>    
+                      <option>40</option>    
+                      <option>50</option>    
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Bilet Fiyatı</label>
+                    <input type="price" formControlName="ticketPrice" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ticketPrice.errors }" required>
+                    <div *ngIf="submitted && f.ticketPrice.errors" class="invalid-feedback">
+                      <div *ngIf="f.ticketPrice.errors.required  ">biletFiyati is required</div>     
+                      <div *ngIf="f.ticketPrice.errors.minlength">biletFiyati must be at least 2 characters</div>
+                      <div *ngIf="f.ticketPrice.errors.maxlength">biletFiyati must be at least 4x characters</div>  
+                    </div>  
+                  </div>
+
+                  <div class="form-group">
+                    <label for="time">Otobüs Plakası</label>
+                    <input type="plaque" formControlName="plaque" class="form-control" id="plaque" [ngClass]="{ 'is-invalid': submitted && f.plaque.errors }">
+                    <div *ngIf="submitted && f.plaque.errors" class="invalid-feedback">
+                      <div *ngIf="f.plaque.errors.required  ">Otobüs Plakası is required</div>       
+                      <div *ngIf="f.plaque.errors.minlength">otobusPlakasi must be at least 7 characters</div>
+                    </div> 
+                  </div>
+                  <div class="form-group">
+                    <label for="time">Otobüs Kaptanı</label>
+                    <input type="captain"formControlName="driverName" class="form-control" id="captain" [ngClass]="{ 'is-invalid': submitted && f.driverName.errors }">
+                    <div *ngIf="submitted && f.driverName.errors" class="invalid-feedback">
+                      <div *ngIf="f.driverName.errors.required  ">otobusKaptani is required</div>       
+                    </div> 
+                  </div>
+               
+                  <button class="btn btn-primary btn-lg btn-block" [disabled]="loading" (click)=" createJourney()" type="submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+
+                    Sefer Ekle</button>
+            </form>
+    </div>
+   
+ 
+</div>

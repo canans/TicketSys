@@ -1,0 +1,57 @@
+<script type="text/javascript" src="/path/to/jquery.js"></script>
+<script type="text/javascript" src="/path/to/bootstrap-datetimepicker.min.js"></script>
+<div class="card" style="width: 30rem;height: 25rem;">
+    <div class="card-body">
+      <form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
+
+
+      
+      <div class="col-md-9">
+        <label>Kalkış Noktası</label>
+        <select class="form-control" formControlName="startLocation"  [ngClass]="{ 'is-invalid': submitted && f.startLocation.errors }" required>
+          <option>Kocaeli</option>
+        </select>
+      </div>
+
+      <hr>
+
+     
+        <div class="col-md-9">
+        <label>Varış Noktası</label>
+          <select class="form-control" formControlName="finishLocation">
+              
+            <option [value]="country" *ngFor="let country of countries" >{{country}}</option>
+          </select>
+        
+        
+    </div>
+        
+       
+  
+          <hr>
+
+     <div class="col-md-9">
+        <label>Yolculuk Tarihi</label>
+            <div class=" form-group">
+              <input
+              type="text"
+              placeholder=""
+              class="form-control"
+              bsDatepicker
+              [bsConfig]="{ isAnimated: true }"
+              formControlName="startDate"
+              [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" required
+              >
+            </div>  
+        
+        </div>
+
+    <hr>
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    <a type="button" class="btn btn-danger btn-lg"   href="/journey"(click)="getByDate()">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Otobüs Bileti Bul</a>
+  </form>
+    </div>
+  </div>
+

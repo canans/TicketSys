@@ -1,0 +1,4 @@
+.btn btn-primary:hover:focus{
+    color:green;
+    background-color: green;
+}
